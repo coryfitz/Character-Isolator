@@ -1,0 +1,20 @@
+{% extends "converter/base.html" %}
+
+{% block content %}
+
+
+<div class="jumbotron">
+
+<h3>Upload a Pleco Vocab List</h3>
+
+<p>(Only accepting Pleco .txt files for now.)</p>
+
+    <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+    <input type="file" name="txt_file" />
+    <input type="submit" value="Upload" />
+    </form>
+
+</div>
+
+
+{% endblock content %}
