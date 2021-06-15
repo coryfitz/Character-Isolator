@@ -8,6 +8,9 @@ from .forms import FilterForm
 from django.contrib.staticfiles.storage import staticfiles_storage
 
 def index(request):
+    return render(request, "converter/index.html")
+
+def filter(request):
     if request.method != 'POST':
         #No data submitted; create a blank form
         form = FilterForm()
@@ -18,12 +21,12 @@ def index(request):
             preference = form.cleaned_data['preference']
             request.session['preference'] = preference
             form.save()
-            return HttpResponseRedirect('converter/file_upload')
+            return HttpResponseRedirect('file_upload')
         else:
             context = {'form':form}
             return render(request, "converter/index.html", context)
     context = {'form':form}
-    return render(request, "converter/index.html", context)
+    return render(request, "converter/filter.html", context)
 
 def file_upload(request):
     success = 0

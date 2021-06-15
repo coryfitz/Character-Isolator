@@ -2,17 +2,19 @@
 
 {% block content %}
 
+<style>
+
+.navbar-brand {
+    color: darkslategrey;
+}
+
+</style>
+
 <div class="jumbotron">
 
-<h3>Choose your Filter</h3>
+<h3>Welcome to Character Isolator</h3>
 
-<p>Select how many characters to ignore. You can choose from zero to the most common one thousand characters <br>(otherwise you'll end up with a flashcard for 人).</p>
-
-  <form method="post">
-    {% csrf_token %}
-    {{ form }}
-    <button type="submit">Submit</button>
-  </form>
+<a class="navbar-brand" href="{% url 'converter:filter'%}"> Click Here to Begin</a>
 
 </div>
 
