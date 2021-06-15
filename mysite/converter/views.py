@@ -10,6 +10,9 @@ from django.contrib.staticfiles.storage import staticfiles_storage
 def index(request):
     return render(request, "converter/index.html")
 
+def about(request):
+    return render(request, "converter/about.html")
+
 def filter(request):
     if request.method != 'POST':
         #No data submitted; create a blank form
