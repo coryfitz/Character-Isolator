@@ -82,7 +82,7 @@ def file_upload(request):
 
             filter_file = file_path.read().decode("utf-8")
 
-            filter=set([])
+            filter = set([])
             for word in filter_file:
                 filter.add(word)
 
@@ -91,22 +91,7 @@ def file_upload(request):
             for word in clean_unique:
                 if word not in filter:
                     filtered.add(word)
-
-            #Write to file
-            f = open("text.txt","w+")
-            for word in filtered:
-                f.write('\n'+word)
-            f.close()
-
-            #Write to file
-            tmp_path = os.path.join(settings.MEDIA_ROOT, 'tmp/text.txt')
-            with open(tmp_path, 'w') as f:
-                item = iter(filtered)
-                for _ in range(len(filtered)-1):
-                    f.write('%s\n' % next(item))
-                f.seek(0)
-                f.write('%s' % next(item))
-            f.close()
+            request.session['filtered_instance'] = list(filtered)
 
         char_isolate()
         success = 1
@@ -115,6 +100,17 @@ def file_upload(request):
     return render(request, "converter/file_upload.html", locals())
 
 def download(request):
+    #Write to file
+    filtered = request.session.get('filtered_instance')
+    tmp_path = os.path.join(settings.MEDIA_ROOT, 'tmp/text.txt')
+    with open(tmp_path, 'w') as f:
+        item = iter(filtered)
+        for _ in range(len(filtered)-1):
+            f.write('%s\n' % next(item))
+        f.seek(0)
+        f.write('%s' % next(item))
+    f.close()
+
     path = "tmp/text.txt"
     new_path = os.path.join(settings.MEDIA_ROOT, path)
     if os.path.exists(new_path):
@@ -127,3 +123,18 @@ def download(request):
             except Exception:
                 raise Http404
 
+def sample(request):
+    path = "mysite/staticfiles/converter/sample.txt"
+    new_path = os.path.join(settings.MEDIA_ROOT, path)
+    if os.path.exists(new_path):
+        with open(new_path, 'rb') as f:
+            try:
+                response = HttpResponse(f)
+                response['content_type'] = "application/octet-stream"
+                response['Content-Disposition'] = 'attachment; filename=' + os.path.basename(new_path)
+                return response
+            except Exception:
+                raise Http404
+
+def feedback(request):
+    return render(request, "converter/feedback.html")

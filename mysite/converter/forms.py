@@ -7,5 +7,3 @@ class FilterForm(forms.ModelForm):
         model = FilterPreference
         fields = ['preference']
         labels = {'preference': ''}
-
-

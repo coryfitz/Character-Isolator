@@ -2,20 +2,16 @@
 
 {% block content %}
 
-<style>
-
-.navbar-brand {
-    color: darkslategrey;
-}
-
-</style>
-
-<div class="jumbotron">
+<section class="box is-primary">
+<div class="box is-primary">
 
 <h3>Welcome to Character Isolator</h3>
 
-<a class="navbar-brand" href="{% url 'converter:filter'%}"> Click Here to Begin</a>
+<a class="button" href="{% url 'converter:filter'%}"> Click Here to Begin</a>
+
+
 
 </div>
+</section>
 
 {% endblock content %}

@@ -22,4 +22,5 @@ urlpatterns = [
     path('converter/', include('converter.urls')),
     path('admin/', admin.site.urls),
     path('foo/',views.download),
+    path('sample/',views.sample),
 ]
