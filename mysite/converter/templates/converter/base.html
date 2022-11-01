@@ -1,53 +1,22 @@
-{% load bootstrap4 %}
-
 <!doctype html>
-<html lang="en">
+<html lang="en" class="has-navbar-fixed-top">
 <head>
-
-
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-
-<style type+"text/css">
-
-    a {
-  text-decoration: none !important;
-}
-
-</style>
-
-
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Character Isolator</title>
-
-<style type+"text/css">
-
-</style>
-
-
-{% bootstrap_css %}
-{% bootstrap_javascript jquery='full' %}
-
-
 </head>
-
 <body>
-
-<nav class="breadcrumb" aria-label="breadcrumbs">
-  <ul>
-    <li><a href="{% url 'index'%}">Character Isolator</a></li>
-    <li><a href="{% url 'converter:about'%}">About</a></li>
-  </ul>
-</nav>
-
-
-<main role="main" class="container">
-    <div class="pb-2 mb-2 border-bottom">
-        {% block page_header %}{% endblock page_header %}
+  <div class="navbar is-primary is-fixed-top">
+    <div class="navbar-start">
+      <nav class="breadcrumb" aria-label="breadcrumbs" id="navbar_crumbs">
+          <ul>
+            <li><a href="{% url 'index'%}">Character Isolator</a></li>
+            <li><a href="{% url 'converter:about'%}">About</a></li>
+          </ul>
+        </nav>
+      </div>
     </div>
-    <div>
-        {% block content %}{% endblock content %}
-    </div>
+  {% block content %}{% endblock content %}
 </main>
 </body>
 </html>

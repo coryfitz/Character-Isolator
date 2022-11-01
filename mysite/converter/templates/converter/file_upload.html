@@ -1,28 +1,21 @@
 {% extends "converter/base.html" %}
 
 {% block content %}
-
-
-<div class="jumbotron">
-
-<h3>Upload a Pleco Vocab List</h3>
-
-<p>(Only accepting Pleco .txt files for now.)</p>
-
-    <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
-    <input type="file" name="txt_file" />
-    <input type="submit" value="Upload" />
-    </form>
-
-<br>
-<br>
-<br>
-
-<p>Download a sample vocabulary list to try it out:</p>
-
-<a href ="/sample">
-    <input type="button" value ="download" style="margin-bottom: 30px"></a>
-
+<div class="box">
+    <div class="content">
+        <h3>Upload a Pleco Vocab List</h3>
+        <p>(Only accepting Pleco .txt files for now.)</p>
+        <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <input type="file" name="txt_file" />
+            <input type="submit" value="Upload" />
+        </form>
+        <br>
+        <br>
+        <br>
+        <p>Download a sample vocabulary list to try it out:</p>
+        <a href ="/sample">
+            <input type="button" value ="download" style="margin-bottom: 30px">
+        </a>
+    </div>
 </div>
-
 {% endblock content %}

@@ -2,18 +2,23 @@
 
 {% block content %}
 
-<div class="jumbotron">
-
-<h3>Choose your Filter</h3>
-
-<p>Select how many characters to ignore. You can choose from zero to the most common one thousand characters <br>(otherwise you'll end up with a flashcard for 人).</p>
-
-  <form method="post">
-    {% csrf_token %}
-    {{ form }}
-    <button type="submit">Submit</button>
-  </form>
-
-</div>
+<section class="section">
+  <div class="container">
+      <div class="columns">
+          <div class="column">
+              <div class="notification">
+                  <h1 class="title is-size-4">Choose your Filter</h1>
+                  <p class="subtitle">
+                    Select how many characters to ignore. You can choose from zero to the most common one thousand characters <br>(otherwise you'll end up with a flashcard for 人).
+                  </p>
+                  <form method="post">
+                    {% csrf_token %}
+                    {{ form }}
+                    <button type="submit">Submit</button>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
 
 {% endblock content %}

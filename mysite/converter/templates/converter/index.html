@@ -1,17 +1,16 @@
 {% extends "converter/base.html" %}
 
 {% block content %}
-
-<section class="box is-primary">
-<div class="box is-primary">
-
-<h3>Welcome to Character Isolator</h3>
-
-<a class="button" href="{% url 'converter:filter'%}"> Click Here to Begin</a>
-
-
-
-</div>
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column">
+                <div class="notification">
+                    <h1 class="title is-size-4">Welcome to Character Isolator</h1>
+                    <a class="button" href="{% url 'converter:filter'%}"> Click Here to Begin</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
-
 {% endblock content %}
