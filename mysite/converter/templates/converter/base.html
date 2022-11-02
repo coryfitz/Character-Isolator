@@ -8,14 +8,16 @@
 <body>
   <div class="navbar is-primary is-fixed-top">
     <div class="navbar-start">
-      <nav class="breadcrumb" aria-label="breadcrumbs" id="navbar_crumbs">
+      <div class="pt-2">
+        <nav class="breadcrumb" aria-label="breadcrumbs" id="navbar_crumbs">
           <ul>
-            <li><a href="{% url 'index'%}">Character Isolator</a></li>
+            <li><a class="pl-3" href="{% url 'index'%}">Character Isolator</a></li>
             <li><a href="{% url 'converter:about'%}">About</a></li>
           </ul>
         </nav>
       </div>
     </div>
+  </div>
   {% block content %}{% endblock content %}
 </main>
 </body>
