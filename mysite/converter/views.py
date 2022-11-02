@@ -96,7 +96,6 @@ def file_upload(request):
         char_isolate()
         success = 1
         return render(request, 'converter/file_download.html')
-    context = {}
     return render(request, "converter/file_upload.html", locals())
 
 def download(request):
