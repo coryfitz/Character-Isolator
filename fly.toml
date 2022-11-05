@@ -1,4 +1,4 @@
-# fly.toml file generated for character-isolator on 2022-11-03T23:41:56Z
+# fly.toml file generated for character-isolator on 2022-11-05T14:45:59Z
 
 app = "character-isolator"
 kill_signal = "SIGINT"
