@@ -123,7 +123,7 @@ def download(request):
                 raise Http404
 
 def sample(request):
-    path = "mysite/staticfiles/converter/sample.txt"
+    path = "staticfiles/converter/sample.txt"
     new_path = os.path.join(settings.MEDIA_ROOT, path)
     if os.path.exists(new_path):
         with open(new_path, 'rb') as f:
