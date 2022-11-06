@@ -128,4 +128,5 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD='django.db.models.AutoField' 
 
 CSRF_USE_SESSIONS = True
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 
