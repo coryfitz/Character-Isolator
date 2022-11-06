@@ -23,7 +23,7 @@ def filter(request):
         if form.is_valid():
             preference = form.cleaned_data['preference']
             request.session['preference'] = preference
-            form.save()
+            #form.save()
             return HttpResponseRedirect('file_upload')
         else:
             context = {'form':form}
