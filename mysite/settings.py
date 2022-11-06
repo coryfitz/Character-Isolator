@@ -127,7 +127,7 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD='django.db.models.AutoField' 
 
-#CSRF_USE_SESSIONS = True
+CSRF_USE_SESSIONS = True
 SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 
 CSRF_TRUSTED_ORIGINS = ['https://character-isolator.fly.dev', 'https://character-isolator.fly.dev/converter/filter']
