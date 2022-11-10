@@ -1,4 +1,5 @@
 {% extends "converter/base.html" %}
+{% load bulma_tags %}
 
 {% block content %}
 
@@ -12,14 +13,18 @@
                     Select how many characters to ignore. You can choose from zero to the most common one thousand characters <br>(otherwise you'll end up with a flashcard for 人).
                   </p>
                   <form method="post">
+                    <p>
                     {% csrf_token %}
-                    {{ form }}
-                    
+                    {{ form|bulma }}
                     <button class="button is-primary" type="submit">Submit</button>
+                  </p>
+                  </form>
               </div>
           </div>
       </div>
   </div>
 </section>
+
+
 
 {% endblock content %}
