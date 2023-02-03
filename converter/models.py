@@ -25,7 +25,4 @@ class FilterPreference(models.Model):
 
 
 class Filter(models.Model):
-    name = models.CharField(max_length=50)
-    characters = models.TextField
-    def __str__(self):
-        return self.name
+    pass
