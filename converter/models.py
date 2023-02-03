@@ -22,3 +22,7 @@ class FilterPreference(models.Model):
 
     def __str__(self):
         return self.preference
+
+
+class Filter(models.Model):
+    pass
