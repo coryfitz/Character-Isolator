@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'uq4csj)e4$!k!%7bshh%37h^$yu9yd@#8+24b9f_t&_1-wmaka'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['characterisolator.fly.dev']
 
