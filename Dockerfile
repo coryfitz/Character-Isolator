@@ -1,23 +1,24 @@
-ARG PYTHON_VERSION=3.11-slim-buster
+ARG PYTHON_VERSION=3.10-slim-buster
 
 FROM python:${PYTHON_VERSION}
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-RUN mkdir -p /app
+RUN mkdir -p /code
 
-WORKDIR /app
+WORKDIR /code
 
 COPY requirements.txt /tmp/requirements.txt
-
 RUN set -ex && \
     pip install --upgrade pip && \
     pip install -r /tmp/requirements.txt && \
     rm -rf /root/.cache/
+COPY . /code
 
-COPY . /app/
+ENV SECRET_KEY "vnSNkXMVi3oG69a6vDw8oF1Bj7lxJ2wyXZaMd4jT8pX5BNu2uN"
+RUN python manage.py collectstatic --noinput
 
-EXPOSE 8080
+EXPOSE 8000
 
 CMD ["gunicorn", "--bind", ":8000", "--workers", "2", "mysite.wsgi"]
