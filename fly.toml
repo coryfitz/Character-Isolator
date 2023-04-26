@@ -1,27 +1,46 @@
-# fly.toml app configuration file generated for character-isolator on 2023-04-26T13:34:59+01:00
-#
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
+# fly.toml file generated for character-isolator on 2022-11-05T14:45:59Z
 
 app = "character-isolator"
-primary_region = "lhr"
+kill_signal = "SIGINT"
+kill_timeout = 5
+processes = []
+
+[deploy]
+  release_command = "python manage.py migrate --noinput"
 
 [env]
   PORT = "8000"
 
-[http_service]
-  internal_port = 8000
-  force_https = true
-  auto_stop_machines = true
-  auto_start_machines = true
+[experimental]
+  allowed_public_ports = []
+  auto_rollback = true
 
-[checks]
-  [checks.alive]
-    type = "tcp"
+[[services]]
+  http_checks = []
+  internal_port = 8000
+  processes = ["app"]
+  protocol = "tcp"
+  script_checks = []
+  [services.concurrency]
+    hard_limit = 25
+    soft_limit = 20
+    type = "connections"
+
+  [[services.ports]]
+    force_https = true
+    handlers = ["http"]
+    port = 80
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443
+
+  [[services.tcp_checks]]
+    grace_period = "1s"
     interval = "15s"
+    restart_limit = 0
     timeout = "2s"
-    grace_period = "5s"
 
 [[statics]]
-  guest_path = "/code/static"
+  guest_path = "/app/public"
   url_prefix = "/static/"
