@@ -27,7 +27,7 @@ SECRET_KEY = 'uq4csj)e4$!k!%7bshh%37h^$yu9yd@#8+24b9f_t&_1-wmaka'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['fly.dev']
+ALLOWED_HOSTS = ['characterisolator.fly.dev']
 
 
 # Application definition
