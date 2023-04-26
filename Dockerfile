@@ -18,6 +18,6 @@ RUN set -ex && \
 
 COPY . /app/
 
-EXPOSE 8000
+EXPOSE 8080
 
 CMD ["gunicorn", "--bind", ":8000", "--workers", "2", "mysite.wsgi"]
