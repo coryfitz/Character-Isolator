@@ -11,7 +11,7 @@
                         <p>(Only accepting Pleco .txt files for now.)</p>
                         <form action="" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
-                            <div class="file has-name">
+                            <div id='file_upload' class="file has-name">
                                 <label class="file-label">
                                   <input class="file-input is-centered" type="file" name="txt_file">
                                   <span class="file-cta">
@@ -41,10 +41,10 @@
 </section>
 
 <script>
-  const fileInput = document.querySelector('#file-js-example input[type=file]');
+  const fileInput = document.querySelector('#file_upload input[type=file]');
   fileInput.onchange = () => {
     if (fileInput.files.length > 0) {
-      const fileName = document.querySelector('#file-js-example .file-name');
+      const fileName = document.querySelector('#file_upload .file-name');
       fileName.textContent = fileInput.files[0].name;
     }
   }
