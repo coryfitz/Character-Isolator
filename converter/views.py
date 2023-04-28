@@ -1,11 +1,63 @@
-from django.shortcuts import render
 import os
+import string
+from django.shortcuts import render
 from django.conf import settings
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import Http404
-from .forms import FilterForm
 from django.contrib.staticfiles.storage import staticfiles_storage
+from .forms import FilterForm
+
+def get_unique_characters(ur_text):
+    text = []
+    for char in ur_text:
+        if char not in text:
+            text.append(char)
+    text = str(text)
+
+    #Find unique characters
+    unique = []
+    for char in text:
+        if char not in unique:
+            unique.append(char)
+    unique = str(unique)
+
+    #Remove punctuation and whitespace
+    nopunct_unique = unique.translate(str.maketrans('', '', string.punctuation))
+    nodigit_unique = nopunct_unique.translate(str.maketrans('', '', string.digits))
+    noletter_unique = nodigit_unique.translate(str.maketrans('', '', string.ascii_letters))
+    nochinesepunct_unique = noletter_unique.translate({ord(c): None for c in '。；：！？，、'})
+    clean_unique = nochinesepunct_unique.translate({ord(c): None for c in string.whitespace})
+    return clean_unique
+        
+def filter_characters(clean_unique, preference):
+    if preference == 'NO':
+        file_path = staticfiles_storage.open('converter/filternone.csv')
+
+    elif preference == 'F250':
+        file_path = staticfiles_storage.open('converter/filter250.csv')
+
+    elif preference == 'F500':
+        file_path = staticfiles_storage.open('converter/filter500.csv')
+
+    elif preference == 'F750':
+        file_path = staticfiles_storage.open('converter/filter750.csv')
+
+    else:
+        file_path = staticfiles_storage.open('converter/filter1000.csv')
+
+    filter_file = file_path.read().decode("utf-8")
+
+    filter = set([])
+    for word in filter_file:
+        filter.add(word)
+
+    #Filter out common characters
+    filtered = set([])
+    for word in clean_unique:
+        if word not in filter:
+            filtered.add(word)
+    return filtered
 
 def index(request):
     return render(request, "converter/index.html")
@@ -36,64 +88,17 @@ def file_upload(request):
     if success == 1:
         success = 2
     if request.POST and request.FILES:
+
+        # read the file and get only the unique characters
         txtfile = request.FILES['txt_file']
-        def char_isolate():
+        ur_text = txtfile.read().decode("utf-8")
+        unique = get_unique_characters(ur_text)
 
-            #Open and read the uploaded file
-            ur_text = txtfile.read().decode("utf-8")
-            text = []
-            for char in ur_text:
-                if char not in text:
-                    text.append(char)
-            text = str(text)
-
-            #Find unique characters
-            unique = []
-            for char in text:
-                if char not in unique:
-                    unique.append(char)
-            unique = str(unique)
-
-            #Remove punctuation and whitespace
-            import string
-            nopunct_unique = unique.translate(str.maketrans('', '', string.punctuation))
-            nodigit_unique = nopunct_unique.translate(str.maketrans('', '', string.digits))
-            noletter_unique = nodigit_unique.translate(str.maketrans('', '', string.ascii_letters))
-            nochinesepunct_unique = noletter_unique.translate({ord(c): None for c in '。；：！？，、'})
-            clean_unique = nochinesepunct_unique.translate({ord(c): None for c in string.whitespace})
-
-            #Determine the filter
-            preference = request.session.get('preference')
-
-            if preference == 'NO':
-                file_path = staticfiles_storage.open('converter/filternone.csv')
-
-            elif preference == 'F250':
-                file_path = staticfiles_storage.open('converter/filter250.csv')
-
-            elif preference == 'F500':
-                file_path = staticfiles_storage.open('converter/filter500.csv')
-
-            elif preference == 'F750':
-                file_path = staticfiles_storage.open('converter/filter750.csv')
-
-            else:
-                file_path = staticfiles_storage.open('converter/filter1000.csv')
-
-            filter_file = file_path.read().decode("utf-8")
-
-            filter = set([])
-            for word in filter_file:
-                filter.add(word)
-
-            #Filter out common characters
-            filtered = set([])
-            for word in clean_unique:
-                if word not in filter:
-                    filtered.add(word)
-            request.session['filtered_instance'] = list(filtered)
-
-        char_isolate()
+        # filter out the most common characters based on user preference
+        preference = request.session.get('preference')
+        filtered = filter_characters(unique, preference)
+        request.session['filtered_instance'] = list(filtered)
+        
         success = 1
         return render(request, 'converter/file_download.html')
     return render(request, "converter/file_upload.html", locals())
