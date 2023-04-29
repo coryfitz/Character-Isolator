@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 from django.http import Http404
 from django.contrib.staticfiles.storage import staticfiles_storage
 from .forms import FilterForm
-from converter_utils import get_unique_characters, filter_characters
+from .converter_utils import get_unique_characters, filter_characters
 
 def index(request):
     return render(request, "converter/index.html")
